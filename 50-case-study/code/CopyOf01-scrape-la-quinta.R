@@ -38,7 +38,7 @@ dir.create(data_dir, showWarnings = T)
 
 # Download each hotel page
 walk(pages, function(url){
-  download.file(url, destfile = file.path(data_dir, basename(url)), quiet = F)
+  download.file(url, destfile = file.path(data_dir, basename(url)), quiet = TRUE)
   #p$tick()$print()
 })
 
