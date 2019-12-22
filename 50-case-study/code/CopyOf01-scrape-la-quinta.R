@@ -24,40 +24,28 @@ discard(str_detect, "laquinta/oshawa-ontario/la-quinta-oshawa/overview") %>%
 discard(str_detect, "laquinta/richmond-british-columbia/la-quinta-inn-vancouver-airport/overview") %>%
 file.path(base_url, .) 
 
-pages <- head(pages, 30) # use a subset for testing code
-      # typeof(pages)
-      # str(pages)
+pages <- head(pages, 5) # use a subset for testing code
 
-      # typeof(pages)
-      # 
-      # rank_data1 <- html_text(pages)
-      # 
-      # 
-      # as_tibble(pages)
-      # 
-      # pages_tbl <- tibble::enframe(name = NULL, pages)
 
 # Step 2 : Save hotels pages locally ---------------------------------
 
 # Create a directory to store downloaded hotel pages
 data_dir <- "00_data-html/"
-dir.create(data_dir, showWarnings = F)
+dir.create(data_dir, showWarnings = T)
 
 # Create a progress bar
 #p <- progress_estimated(length(pages))
 
 # Download each hotel page
-walk(pages, function(url) 
+walk(pages, function(url){
   download.file(url, destfile = file.path(data_dir, basename(url)), quiet = F)
   #p$tick()$print()
-)
+})
 
-
-
-  # Step 3: Process all hotel info into df ----------------------------
+# Step 3: Process all hotel info into df ----------------------------
 
 # Create a character vector of names of all files in directory
-files <- dir(data_dir, full.names = T)
+files <- dir(data_dir, pattern = "*.html", full.names = TRUE)
 
 View(files)
 
